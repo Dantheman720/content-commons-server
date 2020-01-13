@@ -59,6 +59,21 @@ export const getS3ProjectDirectory = units => {
   return s3Dir;
 };
 
+export const getS3PackageDirectory = documents => {
+  let s3Dir = null;
+
+  documents.forEach( ( { url } ) => {
+    // makes the assumption that all files to be deleted reside in same s3 subdir
+    if ( url && !s3Dir ) {
+      if ( hasValidValue( url ) ) {
+        s3Dir = getS3Dir( url );
+      }
+    }
+  } );
+
+  return s3Dir;
+};
+
 export const getVimeoFiles = units => {
   let vimeo = [];
 
